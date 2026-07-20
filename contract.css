@@ -1,0 +1,208 @@
+:root {
+  color-scheme: light;
+  --paper: #FFFCFB;
+  --ink: #40312E;
+  --muted: #7D6E69;
+  --line: #E9DAD5;
+  --field-line: #DED0CB;
+  --brand: #946158;
+  --brand-dark: #74473F;
+  --success: #427661;
+  --danger: #C54247;
+}
+
+* { box-sizing: border-box; }
+
+html { background: #F7F0EE; }
+
+body {
+  min-width: 320px;
+  min-height: 100dvh;
+  margin: 0;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+button, input, select, textarea { -webkit-tap-highlight-color: transparent; }
+button, a, input, select, textarea, label { touch-action: manipulation; }
+
+/* iPhone 安全區 */
+.safe-bottom { padding-bottom: max(12px, env(safe-area-inset-bottom)); }
+.page-safe-top { padding-top: env(safe-area-inset-top); }
+
+/* 文字與選擇欄位 */
+.field-input {
+  width: 100%;
+  min-width: 0;
+  min-height: 48px;
+  border: 1px solid var(--field-line);
+  border-radius: 10px;
+  background: var(--paper);
+  padding: 0 14px;
+  color: var(--ink);
+  font-size: 16px;
+  transition: border-color 160ms ease, box-shadow 160ms ease, background-color 160ms ease;
+}
+
+.field-input::placeholder { color: #A69792; }
+.field-input:hover { border-color: #BEAAA4; }
+.field-input:focus { border-color: var(--brand); outline: none; box-shadow: 0 0 0 3px rgba(148, 97, 88, .12); }
+.field-input:disabled { background: #F3ECE9; color: #8F817C; cursor: not-allowed; }
+.field-input[aria-invalid="true"] { border-color: var(--danger); box-shadow: 0 0 0 3px rgba(197, 66, 71, .12); }
+
+input.field-input,
+select.field-input { height: 48px; }
+
+select.field-input {
+  padding-right: 44px;
+  appearance: none;
+  -webkit-appearance: none;
+  line-height: normal;
+}
+
+textarea.field-input {
+  min-height: 92px;
+  padding-block: 11px;
+  line-height: 1.6;
+  resize: vertical;
+}
+
+/* 曾發生錯誤的欄位修正後，提供一次安靜的成功回饋。 */
+input.field-input.is-corrected {
+  padding-right: 42px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23427661' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='12' cy='12' r='9'/%3E%3Cpath d='m8 12 2.6 2.6L16.5 9'/%3E%3C/svg%3E");
+  background-position: right 14px center;
+  background-repeat: no-repeat;
+  background-size: 18px 18px;
+  animation: success-mark-in 160ms ease-out;
+}
+
+.choice-input { width: 18px; height: 18px; accent-color: var(--brand); }
+
+/* 兩到三個互斥選項 */
+.segmented-control {
+  display: grid;
+  grid-auto-columns: 1fr;
+  grid-auto-flow: column;
+  gap: 3px;
+  min-height: 48px;
+  padding: 3px;
+  border: 1px solid var(--line);
+  border-radius: 11px;
+  background: #F4EBE8;
+}
+
+.segment-option { min-width: 0; cursor: pointer; }
+.segment-option span {
+  display: flex;
+  min-height: 40px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  color: var(--muted);
+  font-size: 14px;
+  font-weight: 600;
+  transition: color 160ms ease, background-color 160ms ease, box-shadow 160ms ease, transform 120ms ease;
+}
+
+.segment-option:active span { transform: translateY(1px); }
+.segment-option input:checked + span { background: var(--paper); color: var(--brand-dark); box-shadow: 0 1px 3px rgba(64, 49, 46, .11); }
+.segment-option input:focus-visible + span { outline: 2px solid var(--brand); outline-offset: 1px; }
+
+/* 可複選項目 */
+.multi-choice-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.multi-option {
+  display: flex;
+  min-width: 0;
+  min-height: 44px;
+  cursor: pointer;
+  align-items: center;
+  gap: 9px;
+  border: 1px solid var(--line);
+  border-radius: 9px;
+  background: var(--paper);
+  padding: 8px 10px;
+  color: #695B57;
+  font-size: 14px;
+  font-weight: 500;
+  transition: border-color 160ms ease, background-color 160ms ease, color 160ms ease;
+}
+
+.multi-option:has(input:checked) { border-color: #C7A19A; background: #FAEEEB; color: var(--brand-dark); }
+.multi-option:focus-within { outline: 2px solid var(--brand); outline-offset: 1px; }
+.multi-option-wide { grid-column: 1 / -1; }
+
+/* 依選項顯示的補充欄位 */
+.conditional-region {
+  display: grid;
+  grid-template-rows: 0fr;
+  margin-top: 0;
+  opacity: 0;
+  transition: grid-template-rows 200ms ease, margin-top 200ms ease, opacity 160ms ease;
+}
+
+.conditional-region[data-open="true"] { grid-template-rows: 1fr; margin-top: 20px; opacity: 1; }
+.conditional-region > div {
+  min-height: 0;
+  overflow: hidden;
+  transform: translateY(-4px);
+  transition: transform 200ms ease;
+}
+.conditional-region[data-open="true"] > div { transform: translateY(0); }
+
+/* 契約閱讀、簽名與送出 */
+.terms-scroll { scrollbar-width: thin; scrollbar-color: #CEBAB5 transparent; overscroll-behavior: contain; }
+.terms-scroll::-webkit-scrollbar { width: 5px; }
+.terms-scroll::-webkit-scrollbar-thumb { background: #CEBAB5; border-radius: 8px; }
+
+.contract-text {
+  margin: 0;
+  color: inherit;
+  font: inherit;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+.read-progress {
+  display: flex;
+  margin-top: 12px;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.read-progress.is-complete { color: var(--success); font-weight: 600; }
+
+.agreement-label { cursor: not-allowed; background: #F4ECE9; color: var(--muted); }
+.agreement-label[data-ready="true"] { cursor: pointer; background: #FFFFFF; color: var(--ink); }
+.agreement-label[data-ready="true"]:has(input:checked) { border-color: var(--brand); background: #FAEEEB; }
+
+.signature-canvas { touch-action: none; }
+.button-spinner { animation: spin 1100ms linear infinite; }
+
+.success-dialog { opacity: 0; transition: opacity 180ms ease; }
+.success-dialog.is-open { opacity: 1; }
+.success-panel { transform: translateY(14px); transition: transform 200ms ease; }
+.success-dialog.is-open .success-panel { transform: translateY(0); }
+
+@keyframes spin { to { transform: rotate(360deg); } }
+@keyframes success-mark-in {
+  from { background-size: 8px 8px; }
+  to { background-size: 18px 18px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    scroll-behavior: auto !important;
+    animation: none !important;
+    transition: none !important;
+  }
+}

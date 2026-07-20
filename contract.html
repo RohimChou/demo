@@ -1,0 +1,574 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#F7F0EE" />
+  <title>寵物美容服務定型化契約｜澡窩寵物美容</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            canvas: '#F7F0EE', paper: '#FFFCFB', ink: '#40312E', muted: '#7D6E69',
+            line: '#E9DAD5', brand: '#946158', 'brand-dark': '#74473F', accent: '#D29A8D',
+            success: '#427661', danger: '#C54247'
+          },
+          fontFamily: {
+            sans: ['"Noto Sans TC"', '"PingFang TC"', '"Microsoft JhengHei"', 'sans-serif']
+          }
+        }
+      }
+    }
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <script src="https://unpkg.com/lucide@0.468.0/dist/umd/lucide.min.js"></script>
+  <link rel="stylesheet" href="contract.css" />
+</head>
+<body class="bg-canvas font-sans text-ink">
+  <div class="mx-auto flex min-h-[100dvh] w-full max-w-[430px] flex-col bg-paper shadow-[0_0_30px_rgba(73,52,35,0.06)]">
+    <main class="page-safe-top flex-1">
+      <section class="px-5 pb-7 pt-7">
+        <div class="mb-3 flex items-center gap-2 text-xs font-semibold tracking-[.12em] text-success">
+          <span class="size-1.5 rounded-full bg-success"></span>
+          澡窩寵物美容
+        </div>
+        <h1 class="text-[28px] font-bold leading-[1.35] tracking-[-.02em]">寵物美容服務定型化契約</h1>
+        <p class="mt-2 text-[15px] leading-6 text-muted">以下資料將作為契約附件之一部分。請閱讀契約並完成簽名；簽署後，契約副本將寄送至您的電子信箱。</p>
+      </section>
+
+      <form id="contractForm" class="px-5" novalidate>
+        <section class="py-7" aria-labelledby="contact-title">
+          <div class="flex items-center gap-3">
+            <span class="grid size-7 place-items-center rounded-full bg-brand text-sm font-bold text-white">1</span>
+            <h2 id="contact-title" class="text-lg font-bold">飼主基本資料</h2>
+          </div>
+
+          <div class="mt-5 grid grid-cols-2 gap-3">
+            <div>
+              <label for="ownerName" class="mb-2 block text-sm font-semibold">飼主姓名 <span class="text-danger">*</span></label>
+              <input id="ownerName" name="ownerName" class="field-input" type="text" autocomplete="name" placeholder="請輸入姓名" data-required data-label="飼主姓名" />
+              <p data-error-for="ownerName" class="mt-2 hidden text-sm text-danger" role="alert"></p>
+            </div>
+            <div>
+              <label for="ownerPhone" class="mb-2 block text-sm font-semibold">聯絡電話 <span class="text-danger">*</span></label>
+              <input id="ownerPhone" name="ownerPhone" class="field-input" type="tel" inputmode="tel" autocomplete="tel" placeholder="09xx-xxx-xxx" data-required data-label="聯絡電話" />
+              <p data-error-for="ownerPhone" class="mt-2 hidden text-sm text-danger" role="alert"></p>
+            </div>
+          </div>
+
+          <div class="mt-5 grid grid-cols-2 gap-3">
+            <div>
+              <label for="emergencyName" class="mb-2 block text-sm font-semibold">緊急聯絡人 <span class="text-danger">*</span></label>
+              <input id="emergencyName" name="emergencyName" class="field-input" type="text" autocomplete="off" placeholder="姓名" data-required data-label="緊急聯絡人" />
+              <p data-error-for="emergencyName" class="mt-2 hidden text-sm text-danger" role="alert"></p>
+            </div>
+            <div>
+              <label for="emergencyPhone" class="mb-2 block text-sm font-semibold">緊急電話 <span class="text-danger">*</span></label>
+              <input id="emergencyPhone" name="emergencyPhone" class="field-input" type="tel" inputmode="tel" autocomplete="off" placeholder="09xx-xxx-xxx" data-required data-label="緊急電話" />
+              <p data-error-for="emergencyPhone" class="mt-2 hidden text-sm text-danger" role="alert"></p>
+            </div>
+          </div>
+
+          <div class="mt-5">
+            <label for="ownerAddress" class="mb-2 block text-sm font-semibold">通訊地址 <span class="text-danger">*</span></label>
+            <input id="ownerAddress" name="ownerAddress" class="field-input" type="text" autocomplete="street-address" placeholder="請輸入契約通訊地址" data-required data-label="通訊地址" />
+            <p data-error-for="ownerAddress" class="mt-2 hidden text-sm text-danger" role="alert"></p>
+          </div>
+
+          <div class="mt-5">
+            <label for="ownerEmail" class="mb-2 block text-sm font-semibold">電子信箱 <span class="text-danger" aria-hidden="true">*</span></label>
+            <input id="ownerEmail" name="ownerEmail" class="field-input" type="email" inputmode="email" autocomplete="email" placeholder="請輸入電子信箱" aria-describedby="emailHint emailError" required />
+            <p id="emailHint" class="mt-2 flex items-center gap-1.5 text-xs text-muted"><i data-lucide="lock-keyhole" class="size-3.5" aria-hidden="true"></i>僅用於寄送本次契約與聯絡通知</p>
+            <p id="emailError" class="mt-2 hidden items-center gap-1.5 text-sm text-danger" role="alert"><i data-lucide="circle-alert" class="size-4" aria-hidden="true"></i><span>請輸入有效的電子信箱</span></p>
+          </div>
+
+          <fieldset class="mt-5">
+            <legend class="mb-2 text-sm font-semibold">送件人是否為飼主本人</legend>
+            <div class="segmented-control">
+              <label class="segment-option"><input class="sr-only" type="radio" name="isOwnerSelf" value="是" checked /><span>是</span></label>
+              <label class="segment-option"><input class="sr-only" type="radio" name="isOwnerSelf" value="否" /><span>否</span></label>
+            </div>
+          </fieldset>
+          <div id="ownerRelationRegion" class="conditional-region" data-open="false">
+            <div>
+              <label for="ownerRelation" class="mb-2 block text-sm font-semibold">與飼主關係 <span class="text-danger">*</span></label>
+              <input id="ownerRelation" name="ownerRelation" class="field-input" type="text" placeholder="例如：家人、朋友、代送" data-required data-label="與飼主關係" disabled />
+              <p data-error-for="ownerRelation" class="mt-2 hidden text-sm text-danger" role="alert"></p>
+            </div>
+          </div>
+
+          <div class="mt-5">
+            <label for="contractNumber" class="mb-2 block text-sm font-semibold">契約編號</label>
+            <input id="contractNumber" class="field-input" type="text" value="送出後由系統產生" disabled />
+          </div>
+        </section>
+
+        <div class="h-px bg-line"></div>
+
+        <section class="py-7" aria-labelledby="pet-title">
+          <div class="flex items-center gap-3">
+            <span class="grid size-7 place-items-center rounded-full bg-brand text-sm font-bold text-white">2</span>
+            <h2 id="pet-title" class="text-lg font-bold">毛孩基本資料</h2>
+          </div>
+          <p class="mb-5 mt-2 pl-10 text-sm leading-6 text-muted">請依毛孩目前的實際狀況填寫。</p>
+
+          <div class="grid grid-cols-2 gap-3">
+            <div>
+              <label for="petName" class="mb-2 block text-sm font-semibold">毛孩姓名 <span class="text-danger">*</span></label>
+              <input id="petName" name="petName" class="field-input" type="text" placeholder="請輸入毛孩姓名" data-required data-label="毛孩姓名" />
+              <p data-error-for="petName" class="mt-2 hidden text-sm text-danger" role="alert"></p>
+            </div>
+            <div>
+              <label for="petWeight" class="mb-2 block text-sm font-semibold">體重（kg）<span class="text-danger">*</span></label>
+              <input id="petWeight" name="petWeight" class="field-input" type="number" inputmode="decimal" min="0.1" step="0.1" placeholder="例如：5.8" data-required data-label="體重" />
+              <p data-error-for="petWeight" class="mt-2 hidden text-sm text-danger" role="alert"></p>
+            </div>
+          </div>
+
+          <div class="mt-5">
+            <label for="petBreed" class="mb-2 block text-sm font-semibold">品種 <span class="text-danger">*</span></label>
+            <div class="relative">
+              <select id="petBreed" name="petBreed" class="field-input" data-required data-label="品種">
+                <option value="">請選擇品種</option>
+                <option>比熊犬</option>
+                <option>貴賓犬</option>
+                <option>標準型貴賓</option>
+                <option>馬爾濟斯</option>
+                <option>柴犬</option>
+                <option>博美犬</option>
+                <option>狐狸犬</option>
+                <option>臘腸犬</option>
+                <option>吉娃娃</option>
+                <option>雪納瑞</option>
+                <option>柯基犬</option>
+                <option>法國鬥牛犬</option>
+                <option>英國鬥牛犬</option>
+                <option>迷你杜賓</option>
+                <option>杜賓</option>
+                <option>傑克羅素</option>
+                <option>拉布拉多</option>
+                <option>黃金獵犬</option>
+                <option>鬆獅</option>
+                <option>邊境牧羊犬</option>
+                <option>巴哥</option>
+                <option>喜樂蒂</option>
+                <option>薩摩耶</option>
+                <option>西施</option>
+                <option>約克夏</option>
+                <option>獵狐梗犬</option>
+                <option>古代牧羊犬</option>
+                <option>米克斯</option>
+                <option>其他</option>
+              </select>
+              <i data-lucide="chevron-down" class="pointer-events-none absolute right-3.5 top-1/2 size-5 -translate-y-1/2 text-muted" aria-hidden="true"></i>
+            </div>
+            <p data-error-for="petBreed" class="mt-2 hidden text-sm text-danger" role="alert"></p>
+          </div>
+          <div id="petBreedOtherRegion" class="conditional-region" data-open="false">
+            <div>
+              <label for="petBreedOther" class="mb-2 block text-sm font-semibold">其他品種 <span class="text-danger">*</span></label>
+              <input id="petBreedOther" name="petBreedOther" class="field-input" type="text" placeholder="請輸入實際品種" data-required data-label="其他品種" disabled />
+              <p data-error-for="petBreedOther" class="mt-2 hidden text-sm text-danger" role="alert"></p>
+            </div>
+          </div>
+
+          <div class="mt-5 grid grid-cols-2 gap-3">
+            <div>
+              <label for="petBirthday" class="mb-2 block text-sm font-semibold">生日 <span class="text-danger">*</span></label>
+              <input id="petBirthday" name="petBirthday" class="field-input" type="text" inputmode="numeric" autocomplete="bday" maxlength="10" placeholder="YYYY/MM/DD" data-required data-label="生日" />
+              <p data-error-for="petBirthday" class="mt-2 hidden text-sm text-danger" role="alert"></p>
+            </div>
+            <div>
+              <label for="petAge" class="mb-2 block text-sm font-semibold">年齡</label>
+              <input id="petAge" name="petAge" class="field-input" type="text" placeholder="依生日計算" readonly />
+            </div>
+          </div>
+
+          <div class="mt-5 grid grid-cols-2 gap-5">
+            <fieldset>
+              <legend class="mb-2 text-sm font-semibold">性別</legend>
+              <div class="segmented-control">
+                <label class="segment-option"><input class="sr-only" type="radio" name="petSex" value="男生" checked /><span>男生</span></label>
+                <label class="segment-option"><input class="sr-only" type="radio" name="petSex" value="女生" /><span>女生</span></label>
+              </div>
+            </fieldset>
+            <fieldset>
+              <legend class="mb-2 text-sm font-semibold">已結紮</legend>
+              <div class="segmented-control">
+                <label class="segment-option"><input class="sr-only" type="radio" name="neutered" value="有" checked /><span>有</span></label>
+                <label class="segment-option"><input class="sr-only" type="radio" name="neutered" value="無" /><span>無</span></label>
+              </div>
+            </fieldset>
+          </div>
+
+          <fieldset class="mt-5">
+            <legend class="mb-2 text-sm font-semibold">晶片</legend>
+            <div class="segmented-control">
+              <label class="segment-option"><input class="sr-only" type="radio" name="chipHas" value="有" checked /><span>有晶片</span></label>
+              <label class="segment-option"><input class="sr-only" type="radio" name="chipHas" value="無" /><span>無晶片</span></label>
+            </div>
+          </fieldset>
+          <div id="chipNumberRegion" class="conditional-region" data-open="true">
+            <div>
+              <label for="chipNo" class="mb-2 block text-sm font-semibold">晶片號碼 <span class="font-normal text-muted">（選填）</span></label>
+              <input id="chipNo" name="chipNo" class="field-input" type="text" inputmode="numeric" pattern="[0-9]*" placeholder="請輸入晶片號碼" />
+            </div>
+          </div>
+          <div id="chipIdentityRegion" class="conditional-region" data-open="false">
+            <div>
+              <label for="chipIdentifyInfo" class="mb-2 block text-sm font-semibold">外觀辨識資訊 <span class="font-normal text-muted">（選填）</span></label>
+              <input id="chipIdentifyInfo" name="chipIdentifyInfo" class="field-input" type="text" placeholder="例如：小名、花色、特徵" disabled />
+            </div>
+          </div>
+        </section>
+
+        <div class="h-px bg-line"></div>
+
+        <section class="py-7" aria-labelledby="health-title">
+          <div class="flex items-center gap-3">
+            <span class="grid size-7 place-items-center rounded-full bg-brand text-sm font-bold text-white">3</span>
+            <h2 id="health-title" class="text-lg font-bold">個性與健康告知</h2>
+          </div>
+          <p class="mb-5 mt-2 pl-10 text-sm leading-6 text-muted">請據實勾選所有可能影響服務安全的狀況。</p>
+
+          <fieldset>
+            <legend class="mb-2 text-sm font-semibold">毛孩個性</legend>
+            <div class="multi-choice-grid">
+              <label class="multi-option"><input class="choice-input shrink-0 temperament-choice" type="checkbox" name="petTemperament" value="親人" data-exclusive-group="people" /><span>親人</span></label>
+              <label class="multi-option"><input class="choice-input shrink-0 temperament-choice" type="checkbox" name="petTemperament" value="不親人" data-exclusive-group="people" /><span>不親人</span></label>
+              <label class="multi-option"><input class="choice-input shrink-0 temperament-choice" type="checkbox" name="petTemperament" value="親狗" data-exclusive-group="dogs" /><span>親狗</span></label>
+              <label class="multi-option"><input class="choice-input shrink-0 temperament-choice" type="checkbox" name="petTemperament" value="不親狗" data-exclusive-group="dogs" /><span>不親狗</span></label>
+              <label class="multi-option"><input class="choice-input shrink-0 temperament-choice" type="checkbox" name="petTemperament" value="不會咬人" data-exclusive-group="bitePeople" /><span>不會咬人</span></label>
+              <label class="multi-option"><input class="choice-input shrink-0 temperament-choice" type="checkbox" name="petTemperament" value="會咬人" data-exclusive-group="bitePeople" /><span>會咬人</span></label>
+              <label class="multi-option"><input class="choice-input shrink-0 temperament-choice" type="checkbox" name="petTemperament" value="不會咬狗" data-exclusive-group="biteDogs" /><span>不會咬狗</span></label>
+              <label class="multi-option"><input class="choice-input shrink-0 temperament-choice" type="checkbox" name="petTemperament" value="會咬狗" data-exclusive-group="biteDogs" /><span>會咬狗</span></label>
+              <label class="multi-option"><input class="choice-input shrink-0 temperament-choice" type="checkbox" name="petTemperament" value="容易緊張" /><span>容易緊張</span></label>
+              <label class="multi-option"><input class="choice-input shrink-0 temperament-choice" type="checkbox" name="petTemperament" value="過度焦慮" /><span>過度焦慮</span></label>
+            </div>
+          </fieldset>
+
+          <div class="mt-5">
+            <label for="petTemperamentNote" class="mb-2 block text-sm font-semibold">個性－其他應注意 <span class="font-normal text-muted">（選填）</span></label>
+            <input id="petTemperamentNote" name="petTemperamentNote" class="field-input" type="text" placeholder="例如：怕吹風、不喜歡剪磨指甲" />
+          </div>
+
+          <fieldset class="mt-5">
+            <legend class="mb-2 text-sm font-semibold">可以餵食零食嗎？</legend>
+            <div class="segmented-control">
+              <label class="segment-option"><input class="sr-only" type="radio" name="treatAllowed" value="可以" checked /><span>可以</span></label>
+              <label class="segment-option"><input class="sr-only" type="radio" name="treatAllowed" value="不可以" /><span>不可以</span></label>
+            </div>
+          </fieldset>
+
+          <fieldset class="mt-5">
+            <legend class="mb-2 text-sm font-semibold">已知病史</legend>
+            <div class="multi-choice-grid">
+              <label class="multi-option multi-option-wide"><input id="noMedicalHistory" class="choice-input shrink-0" type="checkbox" name="medicalHistory" value="毛孩狀況良好、無病史" /><span>毛孩狀況良好、無病史</span></label>
+              <label class="multi-option"><input class="medical-condition choice-input shrink-0" type="checkbox" name="medicalHistory" value="心臟病" /><span>心臟病</span></label>
+              <label class="multi-option"><input class="medical-condition choice-input shrink-0" type="checkbox" name="medicalHistory" value="氣管塌陷" /><span>氣管塌陷</span></label>
+              <label class="multi-option"><input class="medical-condition choice-input shrink-0" type="checkbox" name="medicalHistory" value="白內障" /><span>白內障</span></label>
+              <label class="multi-option"><input class="medical-condition choice-input shrink-0" type="checkbox" name="medicalHistory" value="癲癇" /><span>癲癇</span></label>
+              <label class="multi-option"><input class="medical-condition choice-input shrink-0" type="checkbox" name="medicalHistory" value="骨折" /><span>骨折</span></label>
+              <label class="multi-option"><input class="medical-condition choice-input shrink-0" type="checkbox" name="medicalHistory" value="關節問題" /><span>關節問題</span></label>
+              <label class="multi-option"><input class="medical-condition choice-input shrink-0" type="checkbox" name="medicalHistory" value="懷孕" /><span>懷孕</span></label>
+              <label class="multi-option"><input class="medical-condition choice-input shrink-0" type="checkbox" name="medicalHistory" value="腸炎" /><span>腸炎</span></label>
+              <label class="multi-option multi-option-wide"><input id="otherInjury" class="medical-condition choice-input shrink-0" type="checkbox" name="medicalHistory" value="其他外傷" /><span>其他外傷</span></label>
+            </div>
+          </fieldset>
+
+          <div id="otherInjuryRegion" class="conditional-region" data-open="false">
+            <div>
+              <label for="otherInjuryNote" class="mb-2 block text-sm font-semibold">其他外傷說明 <span class="font-normal text-muted">（選填）</span></label>
+              <input id="otherInjuryNote" name="otherInjuryNote" class="field-input" type="text" placeholder="請填寫外傷部位與目前狀況" disabled />
+            </div>
+          </div>
+
+          <fieldset class="mt-5">
+            <legend class="mb-2 text-sm font-semibold">食物過敏</legend>
+            <div class="segmented-control">
+              <label class="segment-option"><input class="sr-only" type="radio" name="foodAllergy" value="無" checked /><span>無</span></label>
+              <label class="segment-option"><input class="sr-only" type="radio" name="foodAllergy" value="有" /><span>有</span></label>
+            </div>
+          </fieldset>
+
+          <div id="allergyDetailRegion" class="conditional-region" data-open="false">
+            <div>
+              <label for="allergyDetail" class="mb-2 block text-sm font-semibold">過敏內容 <span class="text-danger">*</span></label>
+              <input id="allergyDetail" name="allergyDetail" class="field-input" type="text" placeholder="例如：雞肉、乳製品" data-required data-label="過敏內容" disabled />
+              <p data-error-for="allergyDetail" class="mt-2 hidden text-sm text-danger" role="alert"></p>
+            </div>
+          </div>
+
+          <div class="mt-5">
+            <label for="medicalNote" class="mb-2 block text-sm font-semibold">病史－其他應注意 <span class="font-normal text-muted">（選填）</span></label>
+            <textarea id="medicalNote" name="medicalNote" class="field-input" placeholder="例如：手術年份、手術或特殊病況"></textarea>
+          </div>
+        </section>
+
+        <div class="h-px bg-line"></div>
+
+        <section class="py-7" aria-labelledby="vet-title">
+          <div class="flex items-center gap-3">
+            <span class="grid size-7 place-items-center rounded-full bg-brand text-sm font-bold text-white">4</span>
+            <h2 id="vet-title" class="text-lg font-bold">緊急就醫授權</h2>
+          </div>
+          <p class="mb-4 mt-2 pl-10 text-sm leading-6 text-muted">請選擇緊急狀況時優先送往的動物醫院。</p>
+          <fieldset>
+            <legend class="sr-only">緊急就醫機構</legend>
+            <label class="flex min-h-12 items-center gap-3 border-b border-line py-2"><input class="choice-input" type="radio" name="vetMode" value="甲方指定" /><span class="text-sm font-semibold">由飼主指定醫院</span></label>
+            <label class="flex min-h-12 items-center gap-3 py-2"><input class="choice-input" type="radio" name="vetMode" value="乙方指定" checked /><span><strong class="block text-sm">乙方指定鄰近動物醫院</strong><span class="text-xs text-muted">依緊急狀況與當時可就診院所安排</span></span></label>
+          </fieldset>
+          <div id="vetDetailRegion" class="conditional-region" data-open="false">
+            <div class="space-y-5">
+              <div>
+                <label for="vetName" class="mb-2 block text-sm font-semibold">動物醫院名稱 <span class="text-danger">*</span></label>
+                <input id="vetName" name="vetName" class="field-input" type="text" placeholder="請輸入醫院名稱" data-required data-label="動物醫院名稱" disabled />
+                <p data-error-for="vetName" class="mt-2 hidden text-sm text-danger" role="alert"></p>
+              </div>
+              <div>
+                <label for="vetPhone" class="mb-2 block text-sm font-semibold">動物醫院電話 <span class="text-danger">*</span></label>
+                <input id="vetPhone" name="vetPhone" class="field-input" type="tel" inputmode="tel" placeholder="請輸入醫院電話" data-required data-label="動物醫院電話" disabled />
+                <p data-error-for="vetPhone" class="mt-2 hidden text-sm text-danger" role="alert"></p>
+              </div>
+              <div>
+                <label for="vetAddress" class="mb-2 block text-sm font-semibold">動物醫院地址 <span class="text-danger">*</span></label>
+                <input id="vetAddress" name="vetAddress" class="field-input" type="text" placeholder="請輸入醫院地址" data-required data-label="動物醫院地址" disabled />
+                <p data-error-for="vetAddress" class="mt-2 hidden text-sm text-danger" role="alert"></p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <div class="h-px bg-line"></div>
+
+        <section class="py-7" aria-labelledby="terms-title">
+          <div class="flex items-center gap-3">
+            <span class="grid size-7 place-items-center rounded-full bg-brand text-sm font-bold text-white">5</span>
+            <h2 id="terms-title" class="text-lg font-bold">閱讀合約條款</h2>
+          </div>
+          <p class="mb-4 mt-2 pl-10 text-sm leading-6 text-muted">請將契約閱讀至底部，完成後即可勾選同意。</p>
+
+          <div id="termsBox" class="terms-scroll relative h-[248px] overflow-y-auto rounded-[10px] border border-line bg-white px-4 py-4 text-[13px] leading-[1.85] text-[#554A42]" tabindex="0" aria-label="寵物美容服務契約條款">
+            <pre id="contractText" class="contract-text">寵物美容服務定型化契約
+115年4月29日第2版
+
+【簽約注意事項】
+
+一、本契約之審閱期間不得少於一日。但單次或必要時，應給予即時或合理之審閱期間，審閱期間經雙方合議具結者不在此限。
+
+二、乙方應於簽訂本契約前，提供「犬、貓美容服務簽約前詢問事項及基本資料表」（如附件），並由甲、乙雙方就相關內容共同填妥。乙方並應出示本定型化契約書空白文本，就其契約條款逐條向甲方為說明，使甲方充分瞭解其權利義務。
+
+三、本契約雖為定型化契約之一種，甲、乙雙方仍得針對個別狀況，經雙方合意後，增、刪、修改內容。雙方不得以本契約內容為主管機關所定為由，主張無法修改，亦不得為有利於己之修正後，宣稱為政府機關版本，而主張不得修改。
+
+立契約書人
+消費者姓名：_______________（以下簡稱甲方）
+企業經營者：澡窩寵物美容（以下簡稱乙方）
+
+本契約於簽署前由甲方依規定完成審閱。
+
+甲乙雙方同意就本契約所載條款及附件內容辦理：
+
+第 一 條（契約目的與範圍）
+犬、貓美容服務，指提供犬、貓外表部位清洗或清潔、吹乾梳毛、毛髮修剪及造型設計等美容服務之行為。但不得涉及動物醫療行為及宣稱醫療效能。
+
+第 二 條（資訊揭露義務）
+乙方應至少以半開大小以上紙張或以電子方式，將犬、貓美容服務定型化契約公告於營業櫃台或場所明顯處；有設置網站或經營社群媒體者，並應於網頁明顯處公告。
+
+第 三 條（寵物、甲方及乙方相關資料）
+本契約應記載寵物、甲方及乙方之下列基本資料（如附件）：
+一、寵物：犬、貓之寵物登記晶片號碼或其他足以辨識個體身分之資訊。
+二、甲方：
+（一）姓名。
+（二）通訊地址。
+（三）聯絡電話。
+（四）緊急聯絡人。
+（五）緊急聯絡人之聯絡電話。
+（六）犬、貓需緊急就醫時指定之獸醫診療場所。
+三、乙方：
+（一）公司或商號名稱：澡窩寵物美容。
+（二）代表人或負責人姓名：葉涵青。
+（三）營業地址：新北市板橋區合宜一路183號。
+（四）營業時間：依店內及官方管道公告。
+（五）聯絡電話：_______________。
+（六）犬、貓需緊急就醫時如無指定，送交之獸醫診療場所：依緊急狀況及當時可就診之鄰近動物醫院安排。
+
+第 四 條（服務內容之說明及確認）
+乙方應將甲方所選擇之美容服務項目、期間、次數、有無約定指定服務人員、費用及其支付方式，於訂約前向甲方充分說明。
+乙方應將實施之犬、貓美容服務內容製作紀錄，經甲方簽名確認後，提供正本予甲方留存。前項紀錄之提供及甲方確認之方式，乙方得以書面、電子或其他適當之方式為之。
+乙方收取犬、貓美容服務費用，應開立憑證予甲方。
+
+第 五 條（乙方詢問及照護義務）
+乙方於實施犬、貓美容服務前，應向甲方詢問犬、貓個性、是否具攻擊性、有無疾病、病史等生理狀況或其他特殊須注意事項，並檢查犬、貓現況，以判斷是否合適接受犬、貓美容服務；甲方對於乙方之詢問應誠實告知。
+前項詢問，應製作紀錄經甲方簽名確認後，提供正本予甲方留存。前項紀錄之提供及甲方確認之方式，乙方得以書面、電子或其他適當之方式為之。
+乙方於美容服務實施期間，應提供犬、貓安全、乾淨、通風、排水、適當與適量之遮蔽、照明及溫度之環境，並符合下列規定：
+一、有提供食物或飲水時，應確保其適當、乾淨且無害。
+二、以籠子、繩或鍊圈限制犬、貓活動時，其籠內空間應足供犬、貓充分伸展，其繩或鍊應長於犬、貓身形且足供其充分伸展及活動。
+三、應避免犬、貓遭受騷擾、虐待或傷害。
+四、有發生危害之虞時，應將犬、貓移置安全處，進行妥善照顧。
+五、運輸接送犬、貓時，應注意其食物、飲水、排泄、環境及安全，並避免犬、貓遭受驚嚇、痛苦或傷害。
+六、提供犬、貓其他妥善之照顧。
+
+第 六 條（犬、貓於美容服務期間有異常狀況或死亡情形之處理）
+於美容服務期間，乙方發現犬、貓實施美容部位或生理健康有異常狀況時，應立即妥善處理，嗣後並通知甲方或其指定之緊急聯絡人。
+犬、貓有緊急就醫必要時，除立即通知甲方或其指定之緊急聯絡人外，乙方應優先將犬、貓送往甲方指定之獸醫診療機構；甲方未指定獸醫診療機構時，乙方應將犬、貓就近送往適當之獸醫診療機構，並將犬、貓就診之獸醫診療機構聯絡方式提供予甲方或其指定之緊急聯絡人。
+犬、貓於美容服務期間死亡，或有經乙方送往獸醫診療機構後死亡之情形，乙方應即通知甲方或其指定之緊急聯絡人，妥善保存犬、貓遺體，並向動物保護主管機關報備。甲方經通知後，當日未領回犬、貓遺體時，乙方至遲應於次日將犬、貓遺體交由動物保護主管機關處理。
+發生第一項或前項之情形，為可歸責於乙方之事由所致者，乙方應負損害賠償及動物保護法相關責任。
+
+第 七 條（甲方繳款方式）
+甲方應負擔契約總金額之繳交方式如下：
+□現金。
+□信用卡。
+□其他方式：_______________。
+雙方約定以信用卡按月分期授權扣（繳）款者，應於授權書明確揭露「如甲方書面提出解除、終止契約時，乙方應於四十八小時內通知信用卡銀行停止扣款。」。
+
+第 八 條（犬、貓美容服務實施前，甲方任意解除契約之退費規定）
+犬、貓美容服務實施前，甲方得隨時解除契約。
+犬、貓美容服務實施前，因甲方任意解除本契約者，乙方應於解約日後三日內將已收取之費用扣除手續費後退還於甲方。
+解約手續費之收取如下：
+□一、不收取。
+□二、定額：新臺幣一百元。
+□三、不定額：指本契約總費用百分之○（其最高金額不得逾本契約總費用百分之五，且不得逾新臺幣一千元）。
+未依前項約定解約手續費之金額時，乙方不得扣除解約手續費。
+
+第 九 條（犬、貓美容服務實施後，甲方任意終止契約之退費規定）
+犬、貓美容服務實施後，甲方得隨時終止契約。但單次服務，不適用之。
+犬、貓美容服務實施後，因甲方任意終止本契約者，乙方應於終止日後三日內將已收取之費用扣除已接受美容服務費用及依前條第三項之手續費後退還於甲方。未依前條第三項約定手續費之金額時，乙方不得扣除手續費。
+前項扣除已接受美容服務費用之計算方式如下：
+□一、美容服務項目無差異時，扣除平均每次美容服務費用新臺幣○元，乘以實際接受美容服務次數之費用。
+□二、美容服務項目有差異時，扣除已接受美容服務之單價。但各筆單價不得超過本契約總費用百分之六十。
+前項第一款所稱平均每次美容服務費用，指本契約總費用除以本契約美容服務總次數。
+
+第 十 條（可歸責於乙方，甲方解除或終止契約之退費規定）
+乙方有下列事由之一者，未經甲方之同意，甲方得解除或終止本契約：
+一、將本契約之全部或部分委由其分支機構或其他犬、貓美容服務業者代為履行。
+二、變更服務地點。
+三、變更甲方指定之犬、貓美容服務人員。
+前項情形，乙方應於解除或終止後三日內退還相關費用予甲方；甲方另受有損害時，並應賠償。
+前項相關費用之計算，應以已收取之費用扣除前條第三項勾選計算之費用。
+
+第 十一 條（不可歸責於雙方，解除或終止契約之退費規定）
+有下列事由之一者，契約雙方得於犬、貓美容服務實施前解除或實施後終止契約：
+一、因天災、事變、政府法令等不可抗力或不可歸責於雙方當事人之事由，致不能履約。
+二、犬、貓因死亡、疾病、健康情形不佳或抗拒接受美容服務，致難以繼續接受本契約之服務。
+前項情形，乙方應依第八條或第九條規定退還費用予甲方。但不得扣除手續費。
+
+第 十二 條（甲方逾時接回犬、貓之處理方式）
+乙方完成犬、貓美容服務後，甲方應依雙方約定時間○時○分前接回犬、貓。
+甲方接回犬、貓之時間已逾約定時間者，乙方之處理方式如下：
+□一、不收取逾時費。
+□二、已同意收取逾時費，每小時新臺幣○元。逾時未滿三十分鐘不收取逾時費，逾時三十分鐘起開始計算逾時費，其超過部分，未滿三十分鐘者，以半小時計算；超過三十分鐘以上未滿一小時者，以一小時計算。
+甲方超過當日營業時間未接回犬、貓者，乙方應通知甲方或其緊急聯絡人；無法通知或經通知而未接回犬、貓時，乙方仍應善盡照顧之責，並得收取違約費（每小時逾時費乘以逾時時間，並加計百分之五計算之費用。每日最高不逾該次服務費用之三倍）。
+甲方逾三日未接回犬、貓者，乙方應通知動物保護主管機關依動物保護法相關規定處理。
+
+第 十三 條（不可歸責於甲方，未接回犬、貓之處理方式）
+因天災、事變、政府法令等不可抗力或不可歸責於甲方之事由，致甲方無法於約定時間內接回犬、貓者，乙方應安置犬、貓。乙方提出履行前項安置犬、貓已支付之必要費用並經核實者，得請求甲方償還。
+於安置期間，發生就醫需要或死亡之情形，依第六條規定辦理。第一項事由發生時，乙方最遲應於可正常通訊之次日通知動物保護主管機關知悉。
+事件原因消滅後，乙方應通知甲方或其緊急聯絡人接回犬、貓。甲方當日未接回犬、貓時，乙方應於次日通知動物保護主管機關依動物保護法相關規定處理。
+
+第 十四 條（費用明確性原則）
+本契約之總費用（包括所需商品、材料費、服務費及指定服務人員費）共計新臺幣○元。繳費項目應明列，未明列者，乙方不得向甲方收取。
+因繳費而獲得贈送之商品或服務（價值不得逾總費用百分之二十），於契約解除或終止時，乙方不得向甲方請求返還該贈品，亦不得向甲方主張應自返還之費用金額當中，扣除該贈送之商品或服務價額。
+
+第 十五 條（預收犬、貓美容服務費用之履約保障）
+乙方應就預收犬、貓美容服務費用百分之五十額度，提供履約保障。但契約期限一個月以內或按月收費或預收費用累計未消費金額在新臺幣一萬元以下者，得不提供之。
+乙方提供履約保障應就下列方式之一為之，履約保障內容並應載於契約明顯處：
+□一、乙方提供之履約保障應依信託法規規定交付○銀行開立信託專戶管理，乙方為委託人，且得自為受益人，並依實際交付信託額度，按比例按期（次或月）自專戶領取。乙方發生解散、歇業、破產宣告、遭撤銷或廢止設立登記、假扣押或其他原因而導致無法履行服務契約義務者，視為乙方同意其受益權歸屬甲方或其受讓人。
+□二、乙方已加入由_______________（單位名稱）辦理之犬、貓美容服務聯合連帶保證協定（會員編號_______________），如乙方因財務問題或其他原因致其美容服務無法提供，甲方得於地方主管機關認定其無法提供美容服務時起六個月內，向加入本協定之其他性質相近之業者（以同一直轄市或縣（市）為原則）換取等值之服務（不包括原服務之贈品或贈送服務）。
+
+第 十六 條（個人資料保護）
+乙方因本契約而知悉或持有甲方之個人資料，應予保密並依個人資料保護法相關規定辦理，非經甲方書面同意，乙方不得對外揭露或為契約目的範圍外之利用；契約關係消滅後，亦同。
+
+第 十七 條（違約賠償）
+因可歸責於當事人一方之事由違反本契約條款，致他方遭受損害，應負損害賠償責任。
+
+第 十八 條（履行輔助人）
+就本契約之履行，經甲方同意將本契約之全部或部分委由其他犬、貓美容服務業者代為履行者，該受託犬、貓美容服務業者，視為乙方之代理人或使用人。
+
+第 十九 條（申訴處理）
+甲方對乙方提供之犬、貓美容服務有不滿意時，乙方應指派專人接受申訴。因本契約所生爭議，雙方應儘量以協商方式處理。
+甲方向所在地消費者保護官、消費爭議調解委員會、鄉（鎮、市、區）公所調解委員會申請調解時，乙方應配合前往辦理。
+
+第 二十 條（管轄法院）
+因本契約涉訟者，甲乙雙方同意以臺灣新北地方法院為第一審管轄法院。但不得排除消費者保護法第四十七條或民事訴訟法第四百三十六條之九有關小額訴訟管轄法院之適用。
+
+第 二十一 條（契約及其相關附件效力）
+本契約自簽約日起生效，雙方各執一份契約正本。本契約廣告及相關附件視為本契約之一部分。
+
+第 二十二 條（其他約定事項）
+_______________________________________________。
+
+立契約書人
+甲方（消費者）
+姓名：
+聯絡電話：
+地址：
+
+乙方（企業經營者）
+代表人姓名：葉涵青
+公司／商號名稱：澡窩寵物美容
+營業地址：新北市板橋區合宜一路183號
+聯絡電話：
+
+中華民國      年   月   日</pre>
+          </div>
+
+          <div id="readProgress" class="read-progress" aria-live="polite">
+            <i data-lucide="arrow-down" class="size-4" aria-hidden="true"></i>
+            向下滑動閱讀完整條款
+          </div>
+
+          <label id="agreeLabel" class="agreement-label mt-4 flex min-h-12 items-start gap-3 rounded-[10px] border border-line p-3.5 text-sm transition-colors duration-150" data-ready="false">
+            <input id="agreeTerms" type="checkbox" class="mt-0.5 size-5 shrink-0 accent-brand focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand" disabled required />
+            <span>我已閱讀並同意上述契約內容，且確認提供的資料正確。</span>
+          </label>
+          <p id="agreeError" class="mt-2 hidden items-center gap-1.5 text-sm text-danger" role="alert"><i data-lucide="circle-alert" class="size-4" aria-hidden="true"></i><span>請先閱讀並同意契約</span></p>
+        </section>
+
+        <div class="h-px bg-line"></div>
+
+        <section class="py-7" aria-labelledby="signature-title">
+          <div class="flex items-center gap-3">
+            <span class="grid size-7 place-items-center rounded-full bg-brand text-sm font-bold text-white">6</span>
+            <h2 id="signature-title" class="text-lg font-bold">飼主簽名</h2>
+          </div>
+          <p class="mb-4 mt-2 pl-10 text-sm leading-6 text-muted">請在下方簽名欄完成簽名。</p>
+
+          <div id="signatureWrap" class="relative overflow-hidden rounded-[10px] border border-[#DED0CB] bg-white transition-colors duration-150 focus-within:border-brand focus-within:ring-[3px] focus-within:ring-brand/10">
+            <canvas id="signatureCanvas" class="signature-canvas block h-[180px] w-full" tabindex="0" aria-label="手寫簽名區"></canvas>
+            <div id="signaturePlaceholder" class="pointer-events-none absolute inset-0 grid place-items-center text-sm text-[#A69792]">
+              <span class="flex flex-col items-center gap-2"><i data-lucide="pen-line" class="size-5" aria-hidden="true"></i>在此簽名</span>
+            </div>
+            <button id="clearSignature" type="button" class="absolute bottom-2.5 right-2.5 hidden min-h-11 items-center gap-1 rounded-lg bg-white px-3 text-sm font-semibold text-brand ring-1 ring-line transition-colors duration-150 hover:bg-canvas focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand">
+              <i data-lucide="rotate-ccw" class="size-4" aria-hidden="true"></i>重簽
+            </button>
+          </div>
+          <p id="signatureError" class="mt-2 hidden items-center gap-1.5 text-sm text-danger" role="alert"><i data-lucide="circle-alert" class="size-4" aria-hidden="true"></i><span>請完成飼主簽名</span></p>
+          <p class="mt-3 text-xs leading-5 text-muted">簽署日期：<span id="signDate"></span>・甲方簽名</p>
+        </section>
+      </form>
+    </main>
+
+    <footer class="safe-bottom border-t border-line bg-[#FCF5F3] px-5 pt-4">
+      <button id="submitButton" type="submit" form="contractForm" class="flex min-h-[52px] w-full items-center justify-center gap-2 rounded-[10px] bg-brand px-5 text-base font-bold text-white transition-[background-color,transform] duration-150 hover:bg-brand-dark active:scale-[.99] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand disabled:cursor-not-allowed disabled:bg-[#C8BDB3] disabled:text-white/90" disabled>
+        <i data-lucide="check" class="submit-icon size-5" aria-hidden="true"></i>
+        <span class="button-label">確認並簽署</span>
+      </button>
+    </footer>
+  </div>
+
+  <div id="successDialog" class="success-dialog fixed inset-0 z-50 hidden items-end justify-center bg-black/35 p-3 sm:items-center" role="dialog" aria-modal="true" aria-labelledby="successTitle">
+    <div class="success-panel safe-bottom w-full max-w-[390px] rounded-[14px] bg-paper p-6 shadow-[0_12px_40px_rgba(45,32,23,.22)]">
+      <div class="grid size-11 place-items-center rounded-full bg-[#E7F0E9] text-success"><i data-lucide="check" class="size-6" aria-hidden="true"></i></div>
+      <h2 id="successTitle" class="mt-4 text-xl font-bold">合約已完成簽署</h2>
+      <p class="mt-2 text-sm leading-6 text-muted">契約副本已寄送至 <strong id="successEmail" class="font-semibold text-ink"></strong>，請妥善留存。</p>
+      <button id="closeDialog" type="button" class="mt-6 min-h-12 w-full rounded-[10px] bg-brand font-bold text-white transition-colors duration-150 hover:bg-brand-dark focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand">完成</button>
+    </div>
+  </div>
+
+  <script src="contract.js"></script>
+</body>
+</html>
