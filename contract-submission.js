@@ -4,6 +4,7 @@
   const page = window.ContractPage;
   const { elements, state, requiredFields } = page;
   const submissionProgressTimeouts = [];
+  const formControlDisabledStates = new Map();
   const submissionProgressSteps = [
     {
       minimumDelayMs: 2000,
@@ -65,6 +66,27 @@
     elements.signatureError.classList.add('flex');
   }
 
+  /** 送出後凍結畫面資料；失敗時依送出前狀態還原各欄位。 */
+  function setFormLocked(isLocked) {
+    const formControls = new Set([
+      ...elements.form.querySelectorAll('input, select, textarea, button'),
+      elements.submitButton
+    ]);
+
+    if (isLocked) {
+      formControls.forEach((control) => {
+        formControlDisabledStates.set(control, control.disabled);
+        control.disabled = true;
+      });
+      return;
+    }
+
+    formControlDisabledStates.forEach((wasDisabled, control) => {
+      control.disabled = wasDisabled;
+    });
+    formControlDisabledStates.clear();
+  }
+
   function scrollToFirstInvalidField() {
     const firstInvalidField = elements.form.querySelector(
       '[aria-invalid="true"]'
@@ -82,8 +104,8 @@
 
   function setSubmittingState() {
     state.isSubmitting = true;
+    setFormLocked(true);
     page.setSignatureLocked(true);
-    elements.submitButton.disabled = true;
     elements.submitButton.setAttribute('aria-busy', 'true');
     elements.submitButton.querySelector('.submit-icon').outerHTML = '<i data-lucide="loader-circle" class="submit-icon button-spinner size-5" aria-hidden="true"></i>';
     elements.submitButton.querySelector('.button-label').textContent = '提交資料中…';
@@ -96,6 +118,7 @@
     clearSubmissionProgress();
     state.isSubmitting = false;
     page.setSignatureLocked(false);
+    setFormLocked(false);
     elements.submissionHint.classList.add('hidden');
     elements.submitButton.removeAttribute('aria-busy');
     elements.submitButton.querySelector('.submit-icon').outerHTML = '<i data-lucide="check" class="submit-icon size-5" aria-hidden="true"></i>';
@@ -230,7 +253,6 @@
 
   function initializeContractPage() {
     page.refreshIcons();
-    page.showAppVersion();
     page.setSigningDate();
     page.setupFieldValidation();
     page.setupBirthdayFormatting();

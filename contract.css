@@ -32,6 +32,14 @@ button, a, input, select, textarea, label { touch-action: manipulation; }
 .safe-bottom { padding-bottom: max(12px, env(safe-area-inset-bottom)); }
 .page-safe-top { padding-top: env(safe-area-inset-top); }
 
+/* Logo 固定小尺寸，避免外部樣式尚未載入時撐開首屏。 */
+.brand-logo {
+  display: block;
+  width: 112px;
+  height: auto;
+  margin: 0 auto 12px;
+}
+
 /* 文字與選擇欄位 */
 .field-input {
   width: 100%;
