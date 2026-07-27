@@ -1,4 +1,4 @@
-const contractWebAppUrl = 'https://script.google.com/macros/s/AKfycbxuzL-UXN2QPNUOAcD0UOJQidodweHdv7gXW88QSN1ip3C1VfzlD8fC7t4n-Hnhe2g2Zg/exec?endpoint=contract/new';
+const contractWebAppUrl = 'https://script.google.com/macros/s/AKfycbxuzL-UXN2QPNUOAcD0UOJQidodweHdv7gXW88QSN1ip3C1VfzlD8fC7t4n-Hnhe2g2Zg/exec?endpoint=contract-new';
 
 document.addEventListener('alpine:init', () => {
   window.Alpine.data('contractApp', () => ({
@@ -106,8 +106,7 @@ document.addEventListener('alpine:init', () => {
     successDialog: document.querySelector('#successDialog'),
     successEmail: document.querySelector('#successEmail'),
     closeDialogButton: document.querySelector('#closeDialog'),
-    signDate: document.querySelector('#signDate'),
-    contractText: document.querySelector('#contractText')
+    signDate: document.querySelector('#signDate')
   };
 
   const requiredFields = [...elements.form.querySelectorAll('[data-required]')];
@@ -546,7 +545,6 @@ document.addEventListener('alpine:init', () => {
       data,
       signatureDataUrl: elements.canvas.toDataURL('image/png'),
       line: { userId: '', displayName: '' },
-      contractText: elements.contractText.innerText,
       contractVersion: '115.04.29-v2',
       contractReadConfirmed: state.hasReadTerms
     };
