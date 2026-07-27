@@ -567,12 +567,19 @@ _______________________________________________。
     <div class="success-panel safe-bottom w-full max-w-[390px] rounded-[14px] bg-paper p-6 shadow-[0_12px_40px_rgba(45,32,23,.22)]">
       <div class="grid size-11 place-items-center rounded-full bg-[#E7F0E9] text-success"><i data-lucide="check" class="size-6" aria-hidden="true"></i></div>
       <h2 id="successTitle" class="mt-4 text-xl font-bold">合約已完成簽署</h2>
+      <p id="successContractNumber" class="mt-2 hidden text-sm font-semibold text-ink"></p>
       <p id="successEmailSent" class="mt-2 text-sm leading-6 text-muted">收件確認信已寄送至 <strong id="successEmail" class="font-semibold text-ink"></strong>，請確認信箱。</p>
       <p id="successEmailFailed" class="mt-2 hidden text-sm leading-6 text-muted">契約已完成簽署，但收件確認信暫時無法寄出；店家仍已收到資料。</p>
       <button id="closeDialog" type="button" class="mt-6 min-h-12 w-full rounded-[10px] bg-brand font-bold text-white transition-colors duration-150 hover:bg-brand-dark focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand">完成</button>
     </div>
   </div>
 
-  <script src="contract.js"></script>
+  <script src="contract-api.js"></script>
+  <script src="contract-core.js"></script>
+  <script src="contract-validation.js"></script>
+  <script src="contract-options.js"></script>
+  <script src="contract-terms.js"></script>
+  <script src="contract-signature.js"></script>
+  <script src="contract-submission.js"></script>
 </body>
 </html>
