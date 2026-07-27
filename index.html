@@ -26,9 +26,14 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <script src="https://unpkg.com/lucide@0.468.0/dist/umd/lucide.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.15.12/dist/cdn.min.js"></script>
   <link rel="stylesheet" href="contract.css" />
 </head>
-<body class="bg-canvas font-sans text-ink">
+<body
+  class="bg-canvas font-sans text-ink"
+  x-data="contractApp"
+  @contract:submit.window="submitContract($event.detail)"
+>
   <div class="mx-auto flex min-h-[100dvh] w-full max-w-[430px] flex-col bg-paper shadow-[0_0_30px_rgba(73,52,35,0.06)]">
     <main class="page-safe-top flex-1">
       <section class="px-5 pb-7 pt-7">
@@ -89,14 +94,14 @@
           <fieldset class="mt-5">
             <legend class="mb-2 text-sm font-semibold">送件人是否為飼主本人</legend>
             <div class="segmented-control">
-              <label class="segment-option"><input class="sr-only" type="radio" name="isOwnerSelf" value="是" checked /><span>是</span></label>
-              <label class="segment-option"><input class="sr-only" type="radio" name="isOwnerSelf" value="否" /><span>否</span></label>
+              <label class="segment-option"><input class="sr-only" type="radio" name="isOwnerSelf" value="是" x-model="isOwnerSelf" /><span>是</span></label>
+              <label class="segment-option"><input class="sr-only" type="radio" name="isOwnerSelf" value="否" x-model="isOwnerSelf" /><span>否</span></label>
             </div>
           </fieldset>
-          <div id="ownerRelationRegion" class="conditional-region" data-open="false">
+          <div id="ownerRelationRegion" class="conditional-region" :data-open="isOwnerSelf === '否'">
             <div>
               <label for="ownerRelation" class="mb-2 block text-sm font-semibold">與飼主關係 <span class="text-danger">*</span></label>
-              <input id="ownerRelation" name="ownerRelation" class="field-input" type="text" placeholder="例如：家人、朋友、代送" data-required data-label="與飼主關係" disabled />
+              <input id="ownerRelation" name="ownerRelation" class="field-input" type="text" placeholder="例如：家人、朋友、代送" data-required data-label="與飼主關係" x-model="ownerRelation" :disabled="isOwnerSelf !== '否'" />
               <p data-error-for="ownerRelation" class="mt-2 hidden text-sm text-danger" role="alert"></p>
             </div>
           </div>
@@ -132,7 +137,7 @@
           <div class="mt-5">
             <label for="petBreed" class="mb-2 block text-sm font-semibold">品種 <span class="text-danger">*</span></label>
             <div class="relative">
-              <select id="petBreed" name="petBreed" class="field-input" data-required data-label="品種">
+              <select id="petBreed" name="petBreed" class="field-input" data-required data-label="品種" x-model="petBreed">
                 <option value="">請選擇品種</option>
                 <option>比熊犬</option>
                 <option>貴賓犬</option>
@@ -168,10 +173,10 @@
             </div>
             <p data-error-for="petBreed" class="mt-2 hidden text-sm text-danger" role="alert"></p>
           </div>
-          <div id="petBreedOtherRegion" class="conditional-region" data-open="false">
+          <div id="petBreedOtherRegion" class="conditional-region" :data-open="petBreed === '其他'">
             <div>
               <label for="petBreedOther" class="mb-2 block text-sm font-semibold">其他品種 <span class="text-danger">*</span></label>
-              <input id="petBreedOther" name="petBreedOther" class="field-input" type="text" placeholder="請輸入實際品種" data-required data-label="其他品種" disabled />
+              <input id="petBreedOther" name="petBreedOther" class="field-input" type="text" placeholder="請輸入實際品種" data-required data-label="其他品種" x-model="petBreedOther" :disabled="petBreed !== '其他'" />
               <p data-error-for="petBreedOther" class="mt-2 hidden text-sm text-danger" role="alert"></p>
             </div>
           </div>
@@ -208,20 +213,20 @@
           <fieldset class="mt-5">
             <legend class="mb-2 text-sm font-semibold">晶片</legend>
             <div class="segmented-control">
-              <label class="segment-option"><input class="sr-only" type="radio" name="chipHas" value="有" checked /><span>有晶片</span></label>
-              <label class="segment-option"><input class="sr-only" type="radio" name="chipHas" value="無" /><span>無晶片</span></label>
+              <label class="segment-option"><input class="sr-only" type="radio" name="chipHas" value="有" x-model="chipHas" /><span>有晶片</span></label>
+              <label class="segment-option"><input class="sr-only" type="radio" name="chipHas" value="無" x-model="chipHas" /><span>無晶片</span></label>
             </div>
           </fieldset>
-          <div id="chipNumberRegion" class="conditional-region" data-open="true">
+          <div id="chipNumberRegion" class="conditional-region" :data-open="chipHas === '有'">
             <div>
               <label for="chipNo" class="mb-2 block text-sm font-semibold">晶片號碼 <span class="font-normal text-muted">（選填）</span></label>
-              <input id="chipNo" name="chipNo" class="field-input" type="text" inputmode="numeric" pattern="[0-9]*" placeholder="請輸入晶片號碼" />
+              <input id="chipNo" name="chipNo" class="field-input" type="text" inputmode="numeric" pattern="[0-9]*" placeholder="請輸入晶片號碼" x-model="chipNo" :disabled="chipHas !== '有'" />
             </div>
           </div>
-          <div id="chipIdentityRegion" class="conditional-region" data-open="false">
+          <div id="chipIdentityRegion" class="conditional-region" :data-open="chipHas === '無'">
             <div>
               <label for="chipIdentifyInfo" class="mb-2 block text-sm font-semibold">外觀辨識資訊 <span class="font-normal text-muted">（選填）</span></label>
-              <input id="chipIdentifyInfo" name="chipIdentifyInfo" class="field-input" type="text" placeholder="例如：小名、花色、特徵" disabled />
+              <input id="chipIdentifyInfo" name="chipIdentifyInfo" class="field-input" type="text" placeholder="例如：小名、花色、特徵" x-model="chipIdentifyInfo" :disabled="chipHas !== '無'" />
             </div>
           </div>
         </section>
@@ -290,15 +295,15 @@
           <fieldset class="mt-5">
             <legend class="mb-2 text-sm font-semibold">食物過敏</legend>
             <div class="segmented-control">
-              <label class="segment-option"><input class="sr-only" type="radio" name="foodAllergy" value="無" checked /><span>無</span></label>
-              <label class="segment-option"><input class="sr-only" type="radio" name="foodAllergy" value="有" /><span>有</span></label>
+              <label class="segment-option"><input class="sr-only" type="radio" name="foodAllergy" value="無" x-model="foodAllergy" /><span>無</span></label>
+              <label class="segment-option"><input class="sr-only" type="radio" name="foodAllergy" value="有" x-model="foodAllergy" /><span>有</span></label>
             </div>
           </fieldset>
 
-          <div id="allergyDetailRegion" class="conditional-region" data-open="false">
+          <div id="allergyDetailRegion" class="conditional-region" :data-open="foodAllergy === '有'">
             <div>
               <label for="allergyDetail" class="mb-2 block text-sm font-semibold">過敏內容 <span class="text-danger">*</span></label>
-              <input id="allergyDetail" name="allergyDetail" class="field-input" type="text" placeholder="例如：雞肉、乳製品" data-required data-label="過敏內容" disabled />
+              <input id="allergyDetail" name="allergyDetail" class="field-input" type="text" placeholder="例如：雞肉、乳製品" data-required data-label="過敏內容" x-model="allergyDetail" :disabled="foodAllergy !== '有'" />
               <p data-error-for="allergyDetail" class="mt-2 hidden text-sm text-danger" role="alert"></p>
             </div>
           </div>
@@ -319,24 +324,24 @@
           <p class="mb-4 mt-2 pl-10 text-sm leading-6 text-muted">請選擇緊急狀況時優先送往的動物醫院。</p>
           <fieldset>
             <legend class="sr-only">緊急就醫機構</legend>
-            <label class="flex min-h-12 items-center gap-3 border-b border-line py-2"><input class="choice-input" type="radio" name="vetMode" value="甲方指定" /><span class="text-sm font-semibold">由飼主指定醫院</span></label>
-            <label class="flex min-h-12 items-center gap-3 py-2"><input class="choice-input" type="radio" name="vetMode" value="乙方指定" checked /><span><strong class="block text-sm">乙方指定鄰近動物醫院</strong><span class="text-xs text-muted">依緊急狀況與當時可就診院所安排</span></span></label>
+            <label class="flex min-h-12 items-center gap-3 border-b border-line py-2"><input class="choice-input" type="radio" name="vetMode" value="甲方指定" x-model="vetMode" /><span class="text-sm font-semibold">由飼主指定醫院</span></label>
+            <label class="flex min-h-12 items-center gap-3 py-2"><input class="choice-input" type="radio" name="vetMode" value="乙方指定" x-model="vetMode" /><span><strong class="block text-sm">乙方指定鄰近動物醫院</strong><span class="text-xs text-muted">依緊急狀況與當時可就診院所安排</span></span></label>
           </fieldset>
-          <div id="vetDetailRegion" class="conditional-region" data-open="false">
+          <div id="vetDetailRegion" class="conditional-region" :data-open="vetMode === '甲方指定'">
             <div class="space-y-5">
               <div>
                 <label for="vetName" class="mb-2 block text-sm font-semibold">動物醫院名稱 <span class="text-danger">*</span></label>
-                <input id="vetName" name="vetName" class="field-input" type="text" placeholder="請輸入醫院名稱" data-required data-label="動物醫院名稱" disabled />
+                <input id="vetName" name="vetName" class="field-input" type="text" placeholder="請輸入醫院名稱" data-required data-label="動物醫院名稱" x-model="vetName" :disabled="vetMode !== '甲方指定'" />
                 <p data-error-for="vetName" class="mt-2 hidden text-sm text-danger" role="alert"></p>
               </div>
               <div>
                 <label for="vetPhone" class="mb-2 block text-sm font-semibold">動物醫院電話 <span class="text-danger">*</span></label>
-                <input id="vetPhone" name="vetPhone" class="field-input" type="tel" inputmode="tel" placeholder="請輸入醫院電話" data-required data-label="動物醫院電話" disabled />
+                <input id="vetPhone" name="vetPhone" class="field-input" type="tel" inputmode="tel" placeholder="請輸入醫院電話" data-required data-label="動物醫院電話" x-model="vetPhone" :disabled="vetMode !== '甲方指定'" />
                 <p data-error-for="vetPhone" class="mt-2 hidden text-sm text-danger" role="alert"></p>
               </div>
               <div>
                 <label for="vetAddress" class="mb-2 block text-sm font-semibold">動物醫院地址 <span class="text-danger">*</span></label>
-                <input id="vetAddress" name="vetAddress" class="field-input" type="text" placeholder="請輸入醫院地址" data-required data-label="動物醫院地址" disabled />
+                <input id="vetAddress" name="vetAddress" class="field-input" type="text" placeholder="請輸入醫院地址" data-required data-label="動物醫院地址" x-model="vetAddress" :disabled="vetMode !== '甲方指定'" />
                 <p data-error-for="vetAddress" class="mt-2 hidden text-sm text-danger" role="alert"></p>
               </div>
             </div>
@@ -553,6 +558,7 @@ _______________________________________________。
     </main>
 
     <footer class="safe-bottom border-t border-line bg-[#FCF5F3] px-5 pt-4">
+      <p x-cloak x-show="submitError" x-text="submitError" class="mb-3 text-sm leading-5 text-danger" role="alert"></p>
       <button id="submitButton" type="submit" form="contractForm" class="flex min-h-[52px] w-full items-center justify-center gap-2 rounded-[10px] bg-brand px-5 text-base font-bold text-white transition-[background-color,transform] duration-150 hover:bg-brand-dark active:scale-[.99] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand disabled:cursor-not-allowed disabled:bg-[#C8BDB3] disabled:text-white/90" disabled>
         <i data-lucide="check" class="submit-icon size-5" aria-hidden="true"></i>
         <span class="button-label">確認並簽署</span>

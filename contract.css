@@ -11,6 +11,8 @@
   --danger: #C54247;
 }
 
+[x-cloak] { display: none !important; }
+
 * { box-sizing: border-box; }
 
 html { background: #F7F0EE; }

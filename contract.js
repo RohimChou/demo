@@ -1,3 +1,88 @@
+const contractWebAppUrl = 'https://script.google.com/macros/s/AKfycbxuzL-UXN2QPNUOAcD0UOJQidodweHdv7gXW88QSN1ip3C1VfzlD8fC7t4n-Hnhe2g2Zg/exec?endpoint=contract/new';
+
+document.addEventListener('alpine:init', () => {
+  window.Alpine.data('contractApp', () => ({
+    isOwnerSelf: '是',
+    ownerRelation: '',
+    petBreed: '',
+    petBreedOther: '',
+    chipHas: '有',
+    chipNo: '',
+    chipIdentifyInfo: '',
+    foodAllergy: '無',
+    allergyDetail: '',
+    vetMode: '乙方指定',
+    vetName: '',
+    vetPhone: '',
+    vetAddress: '',
+    submitError: '',
+
+    init() {
+      this.$watch('isOwnerSelf', (value) => {
+        if (value === '是') this.ownerRelation = '';
+      });
+      this.$watch('petBreed', (value) => {
+        if (value !== '其他') this.petBreedOther = '';
+      });
+      this.$watch('chipHas', (value) => {
+        if (value === '有') {
+          this.chipIdentifyInfo = '';
+        } else {
+          this.chipNo = '';
+        }
+      });
+      this.$watch('foodAllergy', (value) => {
+        if (value === '無') this.allergyDetail = '';
+      });
+      this.$watch('vetMode', (value) => {
+        if (value !== '甲方指定') {
+          this.vetName = '';
+          this.vetPhone = '';
+          this.vetAddress = '';
+        }
+      });
+    },
+
+    async submitContract(payload) {
+      this.submitError = '';
+
+      try {
+        const response = await fetch(contractWebAppUrl, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'text/plain;charset=UTF-8'
+          },
+          body: JSON.stringify(payload),
+          redirect: 'follow'
+        });
+
+        if (!response.ok) {
+          throw new Error(`HTTP ${response.status}`);
+        }
+
+        let result;
+        try {
+          result = JSON.parse(await response.text());
+        } catch {
+          throw new Error('伺服器回應格式錯誤');
+        }
+
+        if (result.success === false) {
+          throw new Error(result.message || '契約建立失敗');
+        }
+
+        window.dispatchEvent(new CustomEvent('contract:success', {
+          detail: { payload, result }
+        }));
+      } catch (error) {
+        console.error('Contract submission failed', error);
+        this.submitError = `送出失敗：${error.message}`;
+        window.dispatchEvent(new CustomEvent('contract:error'));
+      }
+    }
+  }));
+});
+
 (() => {
   'use strict';
 
@@ -194,44 +279,6 @@
         clearFieldValidation(field);
       }
     });
-  }
-
-  function bindRadioGroup(name, onChange) {
-    elements.form.querySelectorAll(`input[name="${name}"]`).forEach((radio) => {
-      radio.addEventListener('change', onChange);
-    });
-  }
-
-  function setupConditionalFields() {
-    const syncOwnerRelation = () => {
-      setConditionalRegion('ownerRelationRegion', selectedRadioValue('isOwnerSelf') === '否');
-    };
-    const syncChipFields = () => {
-      const hasChip = selectedRadioValue('chipHas') === '有';
-      setConditionalRegion('chipNumberRegion', hasChip);
-      setConditionalRegion('chipIdentityRegion', !hasChip);
-    };
-    const syncAllergyDetail = () => {
-      setConditionalRegion('allergyDetailRegion', selectedRadioValue('foodAllergy') === '有');
-    };
-    const syncVetDetail = () => {
-      setConditionalRegion('vetDetailRegion', selectedRadioValue('vetMode') === '甲方指定');
-    };
-    const syncBreedOther = () => {
-      setConditionalRegion('petBreedOtherRegion', document.querySelector('#petBreed').value === '其他');
-    };
-
-    bindRadioGroup('isOwnerSelf', syncOwnerRelation);
-    bindRadioGroup('chipHas', syncChipFields);
-    bindRadioGroup('foodAllergy', syncAllergyDetail);
-    bindRadioGroup('vetMode', syncVetDetail);
-    document.querySelector('#petBreed').addEventListener('change', syncBreedOther);
-
-    syncOwnerRelation();
-    syncChipFields();
-    syncAllergyDetail();
-    syncVetDetail();
-    syncBreedOther();
   }
 
   function setupMedicalHistoryRules() {
@@ -441,6 +488,15 @@
     refreshIcons();
   }
 
+  function resetSubmittingState() {
+    state.isSubmitting = false;
+    elements.submitButton.removeAttribute('aria-busy');
+    elements.submitButton.querySelector('.submit-icon').outerHTML = '<i data-lucide="check" class="submit-icon size-5" aria-hidden="true"></i>';
+    elements.submitButton.querySelector('.button-label').textContent = '確認並簽署';
+    updateSubmitState();
+    refreshIcons();
+  }
+
   function checkedValues(name) {
     return [...elements.form.querySelectorAll(`input[name="${name}"]:checked`)]
       .map((field) => field.value);
@@ -524,11 +580,11 @@
     }
 
     const payload = buildContractPayload();
-    elements.form.dispatchEvent(new CustomEvent('contract:submit', { detail: payload }));
-
-    // 靜態展示 loading 與成功回饋；串接 API 時可監聽 contract:submit 事件。
     setSubmittingState();
-    window.setTimeout(showSuccessDialog, 900);
+    elements.form.dispatchEvent(new CustomEvent('contract:submit', {
+      detail: payload,
+      bubbles: true
+    }));
   }
 
   function closeSuccessDialog() {
@@ -543,6 +599,8 @@
   function setupSubmission() {
     elements.form.addEventListener('submit', submitContract);
     elements.closeDialogButton.addEventListener('click', closeSuccessDialog);
+    window.addEventListener('contract:success', showSuccessDialog);
+    window.addEventListener('contract:error', resetSubmittingState);
   }
 
   function initializeContractPage() {
@@ -550,7 +608,6 @@
     setSigningDate();
     setupFieldValidation();
     setupBirthdayFormatting();
-    setupConditionalFields();
     setupMedicalHistoryRules();
     setupTemperamentRules();
     setupTermsReading();
