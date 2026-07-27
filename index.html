@@ -4,6 +4,8 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <meta name="theme-color" content="#F7F0EE" />
+  <!-- 發布時同步更新此版本與靜態資產 query，避免手機沿用舊快取。 -->
+  <meta name="app-version" content="2026.07.27.1" />
   <title>寵物美容服務定型化契約｜澡窩寵物美容</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
@@ -27,7 +29,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <script src="https://unpkg.com/lucide@0.468.0/dist/umd/lucide.min.js"></script>
   <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.15.12/dist/cdn.min.js"></script>
-  <link rel="stylesheet" href="contract.css" />
+  <link rel="stylesheet" href="contract.css?v=2026.07.27.1" />
 </head>
 <body
   class="bg-canvas font-sans text-ink"
@@ -561,6 +563,7 @@ _______________________________________________。
         <span class="button-label" aria-live="polite" aria-atomic="true">確認並簽署</span>
       </button>
       <p id="submissionHint" class="mt-2 hidden text-center text-xs leading-5 text-muted">送出期間請保持此頁面開啟</p>
+      <p id="appVersion" class="mt-1 text-center text-[10px] tracking-wide text-[#B6A8A3]" aria-label="系統版本"></p>
     </footer>
   </div>
 
@@ -575,12 +578,12 @@ _______________________________________________。
     </div>
   </div>
 
-  <script src="contract-api.js"></script>
-  <script src="contract-core.js"></script>
-  <script src="contract-validation.js"></script>
-  <script src="contract-options.js"></script>
-  <script src="contract-terms.js"></script>
-  <script src="contract-signature.js"></script>
-  <script src="contract-submission.js"></script>
+  <script src="contract-api.js?v=2026.07.27.1"></script>
+  <script src="contract-core.js?v=2026.07.27.1"></script>
+  <script src="contract-validation.js?v=2026.07.27.1"></script>
+  <script src="contract-options.js?v=2026.07.27.1"></script>
+  <script src="contract-terms.js?v=2026.07.27.1"></script>
+  <script src="contract-signature.js?v=2026.07.27.1"></script>
+  <script src="contract-submission.js?v=2026.07.27.1"></script>
 </body>
 </html>

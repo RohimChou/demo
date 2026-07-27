@@ -230,6 +230,7 @@
 
   function initializeContractPage() {
     page.refreshIcons();
+    page.showAppVersion();
     page.setSigningDate();
     page.setupFieldValidation();
     page.setupBirthdayFormatting();

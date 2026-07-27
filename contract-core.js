@@ -19,6 +19,7 @@
     clearSignatureButton: document.querySelector('#clearSignature'),
     submitButton: document.querySelector('#submitButton'),
     submissionHint: document.querySelector('#submissionHint'),
+    appVersion: document.querySelector('#appVersion'),
     successDialog: document.querySelector('#successDialog'),
     successContractNumber: document.querySelector('#successContractNumber'),
     successEmail: document.querySelector('#successEmail'),
@@ -53,6 +54,14 @@
     }).format(new Date());
   }
 
+  function showAppVersion() {
+    const version = document
+      .querySelector('meta[name="app-version"]')
+      ?.getAttribute('content')
+      ?.trim();
+    elements.appVersion.textContent = version ? `v${version}` : '';
+  }
+
   function updateSubmitState() {
     elements.submitButton.disabled = !state.hasReadTerms || state.isSubmitting;
   }
@@ -77,6 +86,7 @@
     canvasContext: elements.canvas.getContext('2d'),
     refreshIcons,
     setSigningDate,
+    showAppVersion,
     updateSubmitState,
     selectedRadioValue,
     checkedValues,
