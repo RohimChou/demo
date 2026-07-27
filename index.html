@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <meta name="theme-color" content="#F7F0EE" />
   <!-- 發布時同步更新此版本與靜態資產 query，避免手機沿用舊快取。 -->
-  <meta name="app-version" content="1.2.7" />
+  <meta name="app-version" content="1.2.8" />
   <title>寵物美容服務定型化契約｜澡窩寵物美容</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
@@ -26,15 +26,15 @@
   </script>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link rel="preload" as="image" href="assets/zao-wo-logo.png?v=1.2.7" type="image/png" />
+  <link rel="preload" as="image" href="assets/zao-wo-logo.png?v=1.2.8" type="image/png" />
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <script src="https://unpkg.com/lucide@0.468.0/dist/umd/lucide.min.js"></script>
   <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.15.12/dist/cdn.min.js"></script>
-  <link rel="stylesheet" href="contract.css?v=1.2.7" />
+  <link rel="stylesheet" href="contract.css?v=1.2.8" />
 </head>
 <body
   class="bg-canvas font-sans text-ink"
-  data-app-version="1.2.7"
+  data-app-version="1.2.8"
   x-data="contractApp"
   @contract:submit.window="submitContract($event.detail)"
 >
@@ -43,7 +43,7 @@
       <section class="px-5 pb-3 pt-5">
         <img
           class="brand-logo"
-          src="assets/zao-wo-logo.png?v=1.2.7"
+          src="assets/zao-wo-logo.png?v=1.2.8"
           width="360"
           height="280"
           alt="澡窩寵物美容"
@@ -553,8 +553,8 @@ _______________________________________________。
             <div id="signaturePlaceholder" class="pointer-events-none absolute inset-0 grid place-items-center text-sm text-[#A69792]">
               <span class="flex flex-col items-center gap-2"><i data-lucide="pen-line" class="size-5" aria-hidden="true"></i>在此簽名</span>
             </div>
-            <button id="clearSignature" type="button" class="absolute bottom-2.5 right-2.5 hidden min-h-11 items-center gap-1 rounded-lg bg-white px-3 text-sm font-semibold text-brand ring-1 ring-line transition-colors duration-150 hover:bg-canvas focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand">
-              <i data-lucide="rotate-ccw" class="size-4" aria-hidden="true"></i>重簽
+            <button id="clearSignature" type="button" class="absolute bottom-2 right-2 hidden min-h-9 items-center gap-0.5 rounded-md bg-white px-2.5 text-xs font-semibold text-brand ring-1 ring-line transition-colors duration-150 hover:bg-canvas focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand">
+              <i data-lucide="rotate-ccw" class="size-3.5" aria-hidden="true"></i>重簽
             </button>
           </div>
           <p id="signatureError" class="mt-2 hidden items-center gap-1.5 text-sm text-danger" role="alert"><i data-lucide="circle-alert" class="size-4" aria-hidden="true"></i><span>請完成飼主簽名</span></p>
@@ -584,12 +584,12 @@ _______________________________________________。
     </div>
   </div>
 
-  <script src="contract-api.js?v=1.2.7"></script>
-  <script src="contract-core.js?v=1.2.7"></script>
-  <script src="contract-validation.js?v=1.2.7"></script>
-  <script src="contract-options.js?v=1.2.7"></script>
-  <script src="contract-terms.js?v=1.2.7"></script>
-  <script src="contract-signature.js?v=1.2.7"></script>
-  <script src="contract-submission.js?v=1.2.7"></script>
+  <script src="contract-api.js?v=1.2.8"></script>
+  <script src="contract-core.js?v=1.2.8"></script>
+  <script src="contract-validation.js?v=1.2.8"></script>
+  <script src="contract-options.js?v=1.2.8"></script>
+  <script src="contract-terms.js?v=1.2.8"></script>
+  <script src="contract-signature.js?v=1.2.8"></script>
+  <script src="contract-submission.js?v=1.2.8"></script>
 </body>
 </html>
