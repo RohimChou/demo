@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <meta name="theme-color" content="#F7F0EE" />
   <!-- 發布時同步更新此版本與靜態資產 query，避免手機沿用舊快取。 -->
-  <meta name="app-version" content="1.2.0" />
+  <meta name="app-version" content="1.2.7" />
   <title>寵物美容服務定型化契約｜澡窩寵物美容</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
@@ -26,35 +26,36 @@
   </script>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="preload" as="image" href="assets/zao-wo-logo.png?v=1.2.7" type="image/png" />
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <script src="https://unpkg.com/lucide@0.468.0/dist/umd/lucide.min.js"></script>
   <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.15.12/dist/cdn.min.js"></script>
-  <link rel="stylesheet" href="contract.css?v=1.2.0" />
+  <link rel="stylesheet" href="contract.css?v=1.2.7" />
 </head>
 <body
   class="bg-canvas font-sans text-ink"
-  data-app-version="1.2.0"
+  data-app-version="1.2.7"
   x-data="contractApp"
   @contract:submit.window="submitContract($event.detail)"
 >
   <div class="mx-auto flex min-h-[100dvh] w-full max-w-[430px] flex-col bg-paper shadow-[0_0_30px_rgba(73,52,35,0.06)]">
     <main class="page-safe-top flex-1">
-      <section class="px-5 pb-7 pt-5">
+      <section class="px-5 pb-3 pt-5">
         <img
           class="brand-logo"
-          src="assets/zao-wo-logo.png?v=1.2.0"
+          src="assets/zao-wo-logo.png?v=1.2.7"
           width="360"
           height="280"
           alt="澡窩寵物美容"
           fetchpriority="high"
           decoding="async"
         />
-        <h1 class="text-[28px] font-bold leading-[1.35] tracking-[-.02em]">寵物美容服務定型化契約</h1>
+        <h1 class="text-[24px] font-bold leading-[1.35] tracking-[-.02em]">寵物美容服務定型化契約</h1>
         <p class="mt-2 text-[15px] leading-6 text-muted">以下資料將作為契約附件之一部分。請閱讀契約並完成簽名；簽署後，收件確認信將寄送至您的電子信箱。</p>
       </section>
 
       <form id="contractForm" class="px-5" novalidate>
-        <section class="py-7" aria-labelledby="contact-title">
+        <section class="pb-7 pt-3" aria-labelledby="contact-title">
           <div class="flex items-center gap-3">
             <span class="grid size-7 place-items-center rounded-full bg-brand text-sm font-bold text-white">1</span>
             <h2 id="contact-title" class="text-lg font-bold">飼主基本資料</h2>
@@ -583,12 +584,12 @@ _______________________________________________。
     </div>
   </div>
 
-  <script src="contract-api.js?v=1.2.0"></script>
-  <script src="contract-core.js?v=1.2.0"></script>
-  <script src="contract-validation.js?v=1.2.0"></script>
-  <script src="contract-options.js?v=1.2.0"></script>
-  <script src="contract-terms.js?v=1.2.0"></script>
-  <script src="contract-signature.js?v=1.2.0"></script>
-  <script src="contract-submission.js?v=1.2.0"></script>
+  <script src="contract-api.js?v=1.2.7"></script>
+  <script src="contract-core.js?v=1.2.7"></script>
+  <script src="contract-validation.js?v=1.2.7"></script>
+  <script src="contract-options.js?v=1.2.7"></script>
+  <script src="contract-terms.js?v=1.2.7"></script>
+  <script src="contract-signature.js?v=1.2.7"></script>
+  <script src="contract-submission.js?v=1.2.7"></script>
 </body>
 </html>

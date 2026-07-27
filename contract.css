@@ -35,9 +35,9 @@ button, a, input, select, textarea, label { touch-action: manipulation; }
 /* Logo 固定小尺寸，避免外部樣式尚未載入時撐開首屏。 */
 .brand-logo {
   display: block;
-  width: 112px;
+  width: min(200px, 55vw);
   height: auto;
-  margin: 0 auto 12px;
+  margin: 0 auto 1.25rem;
 }
 
 /* 文字與選擇欄位 */
