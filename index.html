@@ -558,8 +558,9 @@ _______________________________________________。
       <p x-cloak x-show="submitError" x-text="submitError" class="mb-3 text-sm leading-5 text-danger" role="alert"></p>
       <button id="submitButton" type="submit" form="contractForm" class="flex min-h-[52px] w-full items-center justify-center gap-2 rounded-[10px] bg-brand px-5 text-base font-bold text-white transition-[background-color,transform] duration-150 hover:bg-brand-dark active:scale-[.99] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand disabled:cursor-not-allowed disabled:bg-[#C8BDB3] disabled:text-white/90" disabled>
         <i data-lucide="check" class="submit-icon size-5" aria-hidden="true"></i>
-        <span class="button-label">確認並簽署</span>
+        <span class="button-label" aria-live="polite" aria-atomic="true">確認並簽署</span>
       </button>
+      <p id="submissionHint" class="mt-2 hidden text-center text-xs leading-5 text-muted">送出期間請保持此頁面開啟</p>
     </footer>
   </div>
 

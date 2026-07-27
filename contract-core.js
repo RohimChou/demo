@@ -18,6 +18,7 @@
     signatureError: document.querySelector('#signatureError'),
     clearSignatureButton: document.querySelector('#clearSignature'),
     submitButton: document.querySelector('#submitButton'),
+    submissionHint: document.querySelector('#submissionHint'),
     successDialog: document.querySelector('#successDialog'),
     successContractNumber: document.querySelector('#successContractNumber'),
     successEmail: document.querySelector('#successEmail'),

@@ -3,6 +3,54 @@
 
   const page = window.ContractPage;
   const { elements, state, requiredFields } = page;
+  const submissionProgressTimeouts = [];
+  const submissionProgressSteps = [
+    {
+      minimumDelayMs: 2000,
+      maximumDelayMs: 3500,
+      message: '正在確認契約資料…'
+    },
+    {
+      minimumDelayMs: 5000,
+      maximumDelayMs: 7000,
+      message: '正在產製契約 PDF…'
+    },
+    {
+      minimumDelayMs: 9500,
+      maximumDelayMs: 12000,
+      message: '正在寄送契約副本…'
+    },
+    {
+      minimumDelayMs: 15000,
+      maximumDelayMs: 16500,
+      message: '快完成了，請稍候…'
+    }
+  ];
+
+  function clearSubmissionProgress() {
+    submissionProgressTimeouts.forEach((timeoutId) => {
+      window.clearTimeout(timeoutId);
+    });
+    submissionProgressTimeouts.length = 0;
+  }
+
+  function startSubmissionProgress() {
+    clearSubmissionProgress();
+    submissionProgressSteps.forEach((step) => {
+      const delayRange = step.maximumDelayMs - step.minimumDelayMs;
+      const delay = step.minimumDelayMs + Math.round(
+        Math.random() * delayRange
+      );
+      const timeoutId = window.setTimeout(() => {
+        if (state.isSubmitting) {
+          elements.submitButton
+            .querySelector('.button-label')
+            .textContent = step.message;
+        }
+      }, delay);
+      submissionProgressTimeouts.push(timeoutId);
+    });
+  }
 
   function showAgreementError() {
     if (elements.agreeTerms.checked) return;
@@ -37,12 +85,16 @@
     elements.submitButton.disabled = true;
     elements.submitButton.setAttribute('aria-busy', 'true');
     elements.submitButton.querySelector('.submit-icon').outerHTML = '<i data-lucide="loader-circle" class="submit-icon button-spinner size-5" aria-hidden="true"></i>';
-    elements.submitButton.querySelector('.button-label').textContent = '安全送出中…';
+    elements.submitButton.querySelector('.button-label').textContent = '提交資料中…';
+    elements.submissionHint.classList.remove('hidden');
     page.refreshIcons();
+    startSubmissionProgress();
   }
 
   function resetSubmittingState() {
+    clearSubmissionProgress();
     state.isSubmitting = false;
+    elements.submissionHint.classList.add('hidden');
     elements.submitButton.removeAttribute('aria-busy');
     elements.submitButton.querySelector('.submit-icon').outerHTML = '<i data-lucide="check" class="submit-icon size-5" aria-hidden="true"></i>';
     elements.submitButton.querySelector('.button-label').textContent = '確認並簽署';
@@ -97,6 +149,8 @@
   }
 
   function showSuccessDialog(event) {
+    clearSubmissionProgress();
+    elements.submissionHint.classList.add('hidden');
     const emailSent = event.detail?.result?.emailSent === true;
     const contractNumber = String(
       event.detail?.result?.contractNumber ?? ''
