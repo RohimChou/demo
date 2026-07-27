@@ -188,6 +188,11 @@ input.field-input.is-corrected {
 .agreement-label[data-ready="true"]:has(input:checked) { border-color: var(--brand); background: #FAEEEB; }
 
 .signature-canvas { touch-action: none; }
+#signatureWrap[data-locked="true"] { background: #F3ECE9; }
+#signatureWrap[data-locked="true"] .signature-canvas {
+  pointer-events: none;
+  opacity: .78;
+}
 .button-spinner { animation: spin 1100ms linear infinite; }
 
 .success-dialog { opacity: 0; transition: opacity 180ms ease; }

@@ -15,12 +15,18 @@
 
   function resizeCanvas() {
     const bounds = elements.canvas.getBoundingClientRect();
-    if (Math.round(bounds.width) === state.previousCanvasWidth) return;
+    const canvasWidth = Math.round(bounds.width);
+    const canvasHeight = Math.round(bounds.height);
+    if (
+      canvasWidth === state.previousCanvasWidth
+      && canvasHeight === state.previousCanvasHeight
+    ) return;
 
     const signatureBackup = state.hasSignature
       ? elements.canvas.toDataURL('image/png')
       : null;
-    state.previousCanvasWidth = Math.round(bounds.width);
+    state.previousCanvasWidth = canvasWidth;
+    state.previousCanvasHeight = canvasHeight;
     const ratio = window.devicePixelRatio || 1;
     elements.canvas.width = Math.round(bounds.width * ratio);
     elements.canvas.height = Math.round(bounds.height * ratio);
@@ -50,7 +56,7 @@
   }
 
   function markSignaturePresent() {
-    if (state.hasSignature) return;
+    if (state.hasSignature || state.isSignatureLocked) return;
     state.hasSignature = true;
     elements.signaturePlaceholder.classList.add('hidden');
     elements.clearSignatureButton.classList.remove('hidden');
@@ -62,6 +68,7 @@
   }
 
   function beginSignature(event) {
+    if (state.isSignatureLocked) return;
     state.isDrawing = true;
     elements.canvas.setPointerCapture(event.pointerId);
     const point = pointerPosition(event);
@@ -75,7 +82,7 @@
   }
 
   function drawSignature(event) {
-    if (!state.isDrawing) return;
+    if (!state.isDrawing || state.isSignatureLocked) return;
     const point = pointerPosition(event);
     const currentTime = performance.now();
 
@@ -113,6 +120,7 @@
   }
 
   function clearSignature() {
+    if (state.isSignatureLocked) return;
     canvasContext.save();
     canvasContext.setTransform(1, 0, 0, 1, 0, 0);
     canvasContext.clearRect(
@@ -129,6 +137,25 @@
     page.updateSubmitState();
   }
 
+  /** 送出期間禁止變更已納入 payload 的簽名 */
+  function setSignatureLocked(isLocked) {
+    state.isSignatureLocked = isLocked;
+    state.isDrawing = false;
+    state.previousPointerPoint = null;
+    elements.signatureWrap.dataset.locked = String(isLocked);
+    elements.canvas.setAttribute('aria-disabled', String(isLocked));
+    elements.canvas.tabIndex = isLocked ? -1 : 0;
+    elements.clearSignatureButton.disabled = isLocked;
+    elements.clearSignatureButton.classList.toggle(
+      'hidden',
+      isLocked || !state.hasSignature
+    );
+    elements.clearSignatureButton.classList.toggle(
+      'flex',
+      !isLocked && state.hasSignature
+    );
+  }
+
   function setupSignaturePad() {
     elements.canvas.addEventListener('pointerdown', beginSignature);
     elements.canvas.addEventListener('pointermove', drawSignature);
@@ -140,5 +167,8 @@
     resizeCanvas();
   }
 
-  page.setupSignaturePad = setupSignaturePad;
+  Object.assign(page, {
+    setupSignaturePad,
+    setSignatureLocked
+  });
 })();

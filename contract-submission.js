@@ -82,6 +82,7 @@
 
   function setSubmittingState() {
     state.isSubmitting = true;
+    page.setSignatureLocked(true);
     elements.submitButton.disabled = true;
     elements.submitButton.setAttribute('aria-busy', 'true');
     elements.submitButton.querySelector('.submit-icon').outerHTML = '<i data-lucide="loader-circle" class="submit-icon button-spinner size-5" aria-hidden="true"></i>';
@@ -94,6 +95,7 @@
   function resetSubmittingState() {
     clearSubmissionProgress();
     state.isSubmitting = false;
+    page.setSignatureLocked(false);
     elements.submissionHint.classList.add('hidden');
     elements.submitButton.removeAttribute('aria-busy');
     elements.submitButton.querySelector('.submit-icon').outerHTML = '<i data-lucide="check" class="submit-icon size-5" aria-hidden="true"></i>';
@@ -200,9 +202,10 @@
       return;
     }
 
+    const payload = buildContractPayload();
     setSubmittingState();
     elements.form.dispatchEvent(new CustomEvent('contract:submit', {
-      detail: buildContractPayload(),
+      detail: payload,
       bubbles: true
     }));
   }

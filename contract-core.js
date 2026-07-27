@@ -31,9 +31,11 @@
   const state = {
     isDrawing: false,
     hasSignature: false,
+    isSignatureLocked: false,
     hasReadTerms: false,
     isSubmitting: false,
     previousCanvasWidth: 0,
+    previousCanvasHeight: 0,
     previousPointerPoint: null,
     smoothedLineWidth: 2.4
   };
