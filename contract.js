@@ -105,6 +105,8 @@ document.addEventListener('alpine:init', () => {
     submitButton: document.querySelector('#submitButton'),
     successDialog: document.querySelector('#successDialog'),
     successEmail: document.querySelector('#successEmail'),
+    successEmailSent: document.querySelector('#successEmailSent'),
+    successEmailFailed: document.querySelector('#successEmailFailed'),
     closeDialogButton: document.querySelector('#closeDialog'),
     signDate: document.querySelector('#signDate')
   };
@@ -544,14 +546,16 @@ document.addEventListener('alpine:init', () => {
     return {
       data,
       signatureDataUrl: elements.canvas.toDataURL('image/png'),
-      line: { userId: '', displayName: '' },
       contractVersion: '115.04.29-v2',
       contractReadConfirmed: state.hasReadTerms
     };
   }
 
-  function showSuccessDialog() {
+  function showSuccessDialog(event) {
+    const emailSent = event.detail?.result?.emailSent === true;
     elements.successEmail.textContent = elements.emailInput.value.trim();
+    elements.successEmailSent.classList.toggle('hidden', !emailSent);
+    elements.successEmailFailed.classList.toggle('hidden', emailSent);
     elements.successDialog.classList.remove('hidden');
     elements.successDialog.classList.add('flex');
     window.requestAnimationFrame(() => elements.successDialog.classList.add('is-open'));

@@ -42,7 +42,7 @@
           澡窩寵物美容
         </div>
         <h1 class="text-[28px] font-bold leading-[1.35] tracking-[-.02em]">寵物美容服務定型化契約</h1>
-        <p class="mt-2 text-[15px] leading-6 text-muted">以下資料將作為契約附件之一部分。請閱讀契約並完成簽名；簽署後，契約副本將寄送至您的電子信箱。</p>
+        <p class="mt-2 text-[15px] leading-6 text-muted">以下資料將作為契約附件之一部分。請閱讀契約並完成簽名；簽署後，收件確認信將寄送至您的電子信箱。</p>
       </section>
 
       <form id="contractForm" class="px-5" novalidate>
@@ -359,8 +359,6 @@
 
           <div id="termsBox" class="terms-scroll relative h-[248px] overflow-y-auto rounded-[10px] border border-line bg-white px-4 py-4 text-[13px] leading-[1.85] text-[#554A42]" tabindex="0" aria-label="寵物美容服務契約條款">
             <pre id="contractText" class="contract-text">寵物美容服務定型化契約
-115年4月29日第2版
-
 【簽約注意事項】
 
 一、本契約之審閱期間不得少於一日。但單次或必要時，應給予即時或合理之審閱期間，審閱期間經雙方合議具結者不在此限。
@@ -517,8 +515,7 @@ _______________________________________________。
 公司／商號名稱：澡窩寵物美容
 營業地址：新北市板橋區合宜一路183號
 聯絡電話：
-
-中華民國      年   月   日</pre>
+</pre>
           </div>
 
           <div id="readProgress" class="read-progress" aria-live="polite">
@@ -570,7 +567,8 @@ _______________________________________________。
     <div class="success-panel safe-bottom w-full max-w-[390px] rounded-[14px] bg-paper p-6 shadow-[0_12px_40px_rgba(45,32,23,.22)]">
       <div class="grid size-11 place-items-center rounded-full bg-[#E7F0E9] text-success"><i data-lucide="check" class="size-6" aria-hidden="true"></i></div>
       <h2 id="successTitle" class="mt-4 text-xl font-bold">合約已完成簽署</h2>
-      <p class="mt-2 text-sm leading-6 text-muted">契約副本已寄送至 <strong id="successEmail" class="font-semibold text-ink"></strong>，請妥善留存。</p>
+      <p id="successEmailSent" class="mt-2 text-sm leading-6 text-muted">收件確認信已寄送至 <strong id="successEmail" class="font-semibold text-ink"></strong>，請確認信箱。</p>
+      <p id="successEmailFailed" class="mt-2 hidden text-sm leading-6 text-muted">契約已完成簽署，但收件確認信暫時無法寄出；店家仍已收到資料。</p>
       <button id="closeDialog" type="button" class="mt-6 min-h-12 w-full rounded-[10px] bg-brand font-bold text-white transition-colors duration-150 hover:bg-brand-dark focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand">完成</button>
     </div>
   </div>
